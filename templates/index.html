@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="POST">
+    <label for="color1">Color 1:</label>
+    <input type="text" id="color1" name="color1" value="{{ color1 }}" style="border: 3px solid rgb(211, 206, 206);border-radius: 5px;">
+    <label for="color2">Color 2:</label>
+    <input type="text" id="color2" name="color2" value="{{ color2 }}" style="border: 3px solid rgb(211, 206, 206);border-radius: 5px;">
+    <label for="color3">Color 3:</label>
+    <input type="text" id="color3" name="color3" value="{{ color3 }}" style="border: 3px solid rgb(211, 206, 206);border-radius: 5px;">
+    <button type="submit">Mix Colors</button>
+    <button type="submit" name="clear" value="true">Clear</button>
+</form>
+
+<div style="width: 750px; height: 750px; border-radius: 50%; background: linear-gradient(135deg, {{ color1 }}, {{ color2 }}, {{ color3 }});
+position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 2px solid black">
+</div>
+
+<div style="position: absolute; top: 10%; left: 5%; max-height: 300px; overflow-y: auto;">
+    <h2>Available Colors</h2>
+    <ul style="list-style: none; padding: 0;">
+        {% for color in available_colors %}
+        <li style="display: flex; align-items: center; margin-bottom: 10px;">
+            <div style="width: 20px; height: 20px; background-color: {{ color }}; border: 1px solid black; margin-right: 10px;"></div>
+            <span>{{ color }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div style="position: absolute; top: 10%; right: 5%;">
+    <h2>Color History</h2>
+    <div style="display: flex; flex-direction: column-reverse; gap: 10px; max-height: 300px; overflow-y: auto;">
+        {% for colors in history %}
+        <div style="display: flex; gap: 10px;">
+            <div style="width: 20px; height: 20px; background-color: {{ colors[0] }}; border: 1px solid black;"></div>
+            <div style="width: 20px; height: 20px; background-color: {{ colors[1] }}; border: 1px solid black;"></div>
+            <div style="width: 20px; height: 20px; background-color: {{ colors[2] }}; border: 1px solid black;"></div>
+            <span>{{ colors[0] }}, {{ colors[1] }}, {{ colors[2] }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
